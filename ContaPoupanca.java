@@ -10,12 +10,23 @@ package programa;
  * @author 17042284
  */
 public class ContaPoupanca extends Conta{
-    private float taxaJuros;
+	private float taxaJuros;
     
     public ContaPoupanca(String nomeCorrentista, String numeroConta, float taxaJuros)
     {
         super(nomeCorrentista,numeroConta);
         setTaxaJuros(taxaJuros);
+    }
+    
+    @Override
+    public void sacar(double valor)
+    {
+  	  if(valor <= getSaldo())
+  	  {
+  	      decSaldo(valor);
+  	      System.out.println("Valor sacado: R$ " + valor + "\nSaldo atual: R$ " + getSaldo());          
+  	  }
+  	  else System.out.println("Valor inválido para saque!");
     }
     
     private void setTaxaJuros(float taxaJuros)

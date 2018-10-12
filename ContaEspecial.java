@@ -26,11 +26,12 @@ public class ContaEspecial extends Conta
     {
     	return limite;
     }
+    @Override
     public void sacar(double valor)
     {
       if(valor <= (getSaldo() + limite))
       {
-          super.decSaldo(valor);
+          decSaldo(valor);
           System.out.println("Valor sacado: R$ " + valor + "\nSaldo atual: R$ " + getSaldo());          
       }
       else System.out.println("Valor inválido para saque!");
@@ -47,7 +48,7 @@ public class ContaEspecial extends Conta
     	if(saldoCobranca < 0)
     	{
     		saldoCobranca *= (quantJuros/100);
-    		sacar(saldoCobranca);
+    		decSaldo(saldoCobranca);
     	}
     }
 }

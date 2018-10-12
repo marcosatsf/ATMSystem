@@ -3,8 +3,8 @@ package programa;
 
 public abstract class Conta
 {
-  private String nomeCorrentista, senha,numeroConta;
-  private double saldo;
+  protected String nomeCorrentista, senha,numeroConta;
+  protected double saldo;
   
   public Conta()
   {
@@ -14,19 +14,17 @@ public abstract class Conta
   public Conta(String nomeCorrentista, String numeroConta)
   {
     this();
-    this.numeroConta = numeroConta;
-    this.nomeCorrentista = nomeCorrentista;
+    this.setNomeCorrentista(nomeCorrentista);
+    this.setNumConta(numeroConta);
   }
   
-  public void sacar(double valor)
+  public abstract void sacar(double valor);
+  /*if(valor <= saldo)
   {
-      if(valor <= saldo)
-      {
-          decSaldo(valor);
-          System.out.println("Valor sacado: R$ " + valor + "\nSaldo atual: R$ " + getSaldo());          
-      }
-      else System.out.println("Valor inválido para saque!");
+      decSaldo(valor);
+      System.out.println("Valor sacado: R$ " + valor + "\nSaldo atual: R$ " + getSaldo());          
   }
+  else System.out.println("Valor inválido para saque!");*/
   
   public void decSaldo(double saldo)
   {
@@ -35,7 +33,7 @@ public abstract class Conta
   
   public void depositar(double valor)
   {
-      saldo += valor;
+      this.saldo += valor;
   }
   
   public void setNumConta(String numeroConta) {

@@ -1,14 +1,18 @@
 package programa;
 
 import java.util.Scanner;
+import javax.swing.*;
 
 public class Programa {
 	public static void main(String[] args)
 	{
 		Scanner input = new Scanner(System.in);
-	      
+		SistemaBancario menu = new SistemaBancario();
+		
 	    int opcao=0;
-	      
+	    
+	    MenuFrame programFrame = new MenuFrame();
+	    
 	    do
 	    {
 	        System.out.println("\n-----Bem-vindo ao MBank-----\n1. Gerente\n2. Cliente\n");
@@ -16,10 +20,12 @@ public class Programa {
 			switch(opcao)
 			{
 			    case 1:
-	                menuGerente();		                
+	                menu.menuGerente();		                
 	                break;
 	            case 2:
-	            	menuCliente();
+	            	menu.menuCliente();
+	            	break;
+	            default:
 	            	break;
 			}
 	    }while(0 < opcao && opcao < 3);

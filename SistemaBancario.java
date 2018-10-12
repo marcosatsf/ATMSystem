@@ -4,19 +4,19 @@ import java.util.Scanner;
 
 public class SistemaBancario {
 	private static final int tamanho = 20;
-	Scanner input = new Scanner(System.in);
+	private Scanner input = new Scanner(System.in);
 	
-	int limite, num=00, subopcao, tentativasSenha, flagNumConta=0, flagConta=0;
-    double valorDin;
-    float taxa;
-    String nomePessoa, senhaTemp, senhaNova, numeroC;
-    Conta cliente[] = new Conta[tamanho];
+	private int limite, num=00, subopcao, tentativasSenha, flagNumConta=0, flagConta=0;
+    private double valorDin;
+    private float taxa;
+    private String nomePessoa, senhaTemp, senhaNova, numeroC;
+    private Conta cliente[] = new Conta[tamanho];
     
     public void menuGerente()
     {
     	do
     	{
-	    	 System.out.printf("\n1. Criar nova conta corrente simples;\n2. Criar nova conta corrente especial;\n3. Criar nova conta poupança;\n4. Visualizar informações de conta;\n5. Incrementar rendimentos;\n6. Realizar a cobrança de juros\n7. Imprimir informações de clientes\nOpção: ");
+	    	 System.out.printf("\n1. Criar nova conta corrente simples;\n2. Criar nova conta corrente especial;\n3. Criar nova conta poupança;\n4. Visualizar informações de conta;\n5. Incrementar rendimentos;\n6. Realizar a cobrança de juros;\n7. Imprimir informações de clientes;\n0. Voltar\nOpção: ");
 	         subopcao = input.nextInt();
 	         switch(subopcao)
 	         {
@@ -60,7 +60,7 @@ public class SistemaBancario {
 	                 numeroC = input.nextLine();
 	                 for(int i=0; i < num; i++)
 	                 {
-	                     if(cliente[i].getNumConta() == numeroC)
+	                     if(cliente[i].getNumConta().equals(numeroC))
 	                     {
 	                         cliente[i].printConta();
 	                         flagNumConta = -1;
@@ -73,12 +73,14 @@ public class SistemaBancario {
 	             case 5:
 	             	for(int j=0;j< num;j++)
 	             		if(cliente[j] instanceof ContaPoupanca) ((ContaPoupanca)cliente[j]).aplicaRendimento();
+	             	System.out.println("Foram aplicados os rendimentos em todas as contas poupanças existentes!");
 	             	break;
 	             case 6:
 	             	System.out.printf("Insira o número da taxa que deseja cobrar: ");
 	             	taxa = input.nextFloat();
 	             	for(int j=0;j< num;j++)
 	             		if(cliente[j] instanceof ContaEspecial) ((ContaEspecial)cliente[j]).cobrancaJuros(taxa);
+	             	System.out.println("Foram aplicados os juros definidos em todas as contas especiais existentes!");
 	             	break;
 	             case 7:
 	             	for(int j=0;j< num;j++) cliente[j].printConta();
@@ -96,13 +98,14 @@ public class SistemaBancario {
         	System.out.println("Insira o número da conta que deseja acessar: ");
             input.nextLine(); 
             numeroC = input.nextLine();
+            flagConta=0;
         	for(int i=0; i<num; i++) if(cliente[i].getNumConta().equals(numeroC)) flagConta=1;
-        	if(!flagConta)
+        	if(flagConta==0)
         	{
-        		System.out.println("Não existe tal número de conta!");
+        		System.out.println("Não existe tal número de conta!\n");
         		break;
         	}
-        	flagConta=0, tentativasSenha = 3;
+        	tentativasSenha = 3;
 	        for(int j=0;j<num;j++)
 	        {
 	            if(cliente[j].getNumConta().equals(numeroC))
@@ -116,7 +119,7 @@ public class SistemaBancario {
 	                    {
 	                        do 
 	                        {
-	                        	System.out.printf("\nO que deseja fazer agora, " + cliente[j].getNomeCorrentista() + "?\n1.Realizar saque\n2.Realizar depósito\n3.Visualizar informações da conta\n4. Alterar senha\n5. Sair\nOpção: ");
+	                        	System.out.printf("\nO que deseja fazer agora, " + cliente[j].getNomeCorrentista() + "?\n1.Realizar saque\n2.Realizar depósito\n3.Visualizar informações da conta\n4. Alterar senha\n0. Sair\nOpção: ");
 	                            subopcao = input.nextInt();
 	                            switch(subopcao)
 	                            {
@@ -142,10 +145,10 @@ public class SistemaBancario {
 	                                	  senhaNova = input.nextLine();
 	                                	  cliente[j].alteraSenha(senhaTemp, senhaNova);
 	                                	  break;
-	                                  case 5:
+	                                  case 0:
 	                                	  break;
 	                            }
-	                        }while(subopcao != 5);
+	                        }while(subopcao != 0);
 	                        break;
 	                    }
 	                    else
@@ -158,7 +161,7 @@ public class SistemaBancario {
 	            	break;
 	            }
 	        }
-    	}while(!flagConta);
+    	}while(flagConta==0);
     }
 	
 }
