@@ -15,8 +15,6 @@ public class MenuFrame extends JFrame{
 	public MenuFrame(){
 		super("Banco MBank");
 		getContentPane().setLayout(null);
-		GerenteJFrame subGerente = new GerenteJFrame();
-		ClienteJFrame subCliente = new ClienteJFrame();
 		
 
 		//BufferedImage image;
@@ -70,8 +68,7 @@ public class MenuFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				// TODO Auto-generated method stub
-				subGerente.setSize(500,500);
-				subGerente.setVisible(true);
+				GerenteJFrame subGerente = new GerenteJFrame();
 				subGerente.setLocationRelativeTo(frontText);
 				setVisible(false);
 				//dispose();
@@ -82,6 +79,7 @@ public class MenuFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				// TODO Auto-generated method stub
+				ClienteJFrame subCliente = new ClienteJFrame();
 				subCliente.setSize(500,500);
 				subCliente.setVisible(true);
 				subCliente.setLocationRelativeTo(frontText);
