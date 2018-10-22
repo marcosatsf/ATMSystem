@@ -1,43 +1,54 @@
 package programa;
 
-import java.awt.Button;
+import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import javax.swing.*;
 
+
 public class MenuFrame extends JFrame{
 	
 	public Font bankFont;
-
+	public GridLayout gridLayout = new GridLayout(1,4);
+	public Dimension dimensao = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	public MenuFrame(){
 		super("Banco MBank");
+		super.setLayout(gridLayout);
+		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		super.setSize(500,500);
+		super.setVisible(true);
+		super.setLocationRelativeTo(null);
+		super.setResizable(false);
+		
+		this.setLocation((dimensao.width - this.getSize().width)/2, (dimensao.height - this.getSize().height)/2);
+		
+		UIManager.LookAndFeelInfo[] styles = UIManager.getInstalledLookAndFeels();
+		try
+		{
+			UIManager.setLookAndFeel(styles[1].getClassName());
+		}
+		catch(Exception NotStyle)
+		{
+			NotStyle.printStackTrace();
+		}
+		
 		getContentPane().setLayout(null);
 		
-
-		//BufferedImage image;
-		//image = ImageIO.read(new File("mbank.gif"));
-		//Icon icon = new ImageIcon(image);
 		URL url = this.getClass().getResource("mbank.gif");
 		Icon myImgIcon = new ImageIcon(url);
 		JLabel imageLbl = new JLabel(myImgIcon);
 		imageLbl.setBounds(50, 30, 400, 100);
 		add(imageLbl);
 		
-		//JLabel animatedGIF = new JLabel(new ImageIcon("mbank.gif"));
-		//animatedGIF.setBounds(100,300,400,120);
-		//add(animatedGIF);
-		
 		JLabel frontText = new JLabel("Bem-Vindo ao seu banco!");
 		JLabel auxText = new JLabel("Escolha uma das opções abaixo: ");
-		
-		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		super.setSize(500,500);
-		super.setVisible(true);
-		super.setLocationRelativeTo(null);
-		super.setResizable(false);
 				
 		bankFont = new Font("Trebuchet MS", Font.BOLD, 10);
 		
@@ -52,8 +63,8 @@ public class MenuFrame extends JFrame{
 		add(frontText);
 		add(auxText);
 		
-		Button gerente = new Button("Gerente");
-		Button cliente = new Button("Cliente");
+		JButton gerente = new JButton("Gerente");
+		JButton cliente = new JButton("Cliente");
 		
 		gerente.setBounds(200,250,100,50);
 		cliente.setBounds(200,330,100,50);
@@ -88,6 +99,14 @@ public class MenuFrame extends JFrame{
 			}
 		});
 		//pack();
+		addWindowListener(new java.awt.event.WindowAdapter(){
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent event)
+			{
+				
+				//X on close
+			}
+		});
 	}
 
 }
