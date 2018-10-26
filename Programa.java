@@ -15,6 +15,7 @@ public class Programa {
 	    
 	    do
 	    {
+	        System.out.println("\n-----Bem-vindo ao MBank-----\n1. Gerente\n2. Cliente\n");
 			opcao = input.nextInt();
 			switch(opcao)
 			{
