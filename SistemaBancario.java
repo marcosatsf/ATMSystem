@@ -6,11 +6,12 @@ public class SistemaBancario {
 	private static final int tamanho = 20;
 	private Scanner input = new Scanner(System.in);
 	
-	private int limite, num=00, subopcao, tentativasSenha, flagNumConta=0, flagConta=0;
+	private int limite, subopcao, tentativasSenha, flagNumConta=0, flagConta=0;
     private double valorDin;
     private float taxa;
     private String nomePessoa, senhaTemp, senhaNova, numeroC;
-    private Conta cliente[] = new Conta[tamanho];
+    protected static Conta cliente[];
+    protected static int num=00;
     
     public void menuGerente()
     {
@@ -163,5 +164,27 @@ public class SistemaBancario {
 	        }
     	}while(flagConta==0);
     }
-	
+    
+    public void setContaSimples(String nomePessoa)
+    {
+        
+        cliente[num] = new ContaSimples(nomePessoa, numeroC);
+        //System.out.println("Conta Simples criada com sucesso!");
+        num++;
+    }
+    
+    public static String getNumConta()
+    {
+    	if(num < 10) return ("17040" + Integer.toString(num));
+        else return ("1704" + Integer.toString(num));
+    }
+    
+    public static Conta[] getInstanceContaArray()
+    {
+    	if(cliente==null)
+    	{
+    		return new Conta[tamanho];
+    	}
+    	else return cliente;
+    }
 }

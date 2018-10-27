@@ -11,10 +11,11 @@ public class Programa {
 		
 	    int opcao=0;
 	    
-	    MenuFrame programFrame = new MenuFrame();
+	    MenuFrame programFrame = MenuFrame.getMenuFrame();
 	    
 	    do
 	    {
+	        System.out.println("\n-----Bem-vindo ao MBank-----\n1. Gerente\n2. Cliente\n");
 			opcao = input.nextInt();
 			switch(opcao)
 			{
