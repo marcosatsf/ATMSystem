@@ -1,7 +1,5 @@
 package programa;
 
-import javax.swing.UIManager;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -110,11 +108,20 @@ public class MenuFrame extends JFrame{
 			}
 		});
 		addWindowListener(new java.awt.event.WindowAdapter(){
+			boolean notFinished=false;
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent event)
 			{
-				
-				//X on close
+				//JOptionPane.showConfirmDialog(null, "Deseja realmente sair?")				
+				Object[] options = { "Sim", "Não" };
+				int option = JOptionPane.showOptionDialog(null, "Deseja realmente sair?", "Confirmar saída",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, options, options[0]);
+				switch(option)
+				{
+				case 0:
+					break;
+				case 1:
+					break;
+				}
 			}
 		});
 		

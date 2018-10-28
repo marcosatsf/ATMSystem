@@ -11,7 +11,7 @@ public class Programa {
 		
 	    int opcao=0;
 	    
-	    MenuFrame programFrame = MenuFrame.getMenuFrame();
+	    MenuFrame programFrame = new MenuFrame();
 	    
 	    do
 	    {

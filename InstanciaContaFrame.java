@@ -172,29 +172,7 @@ public class InstanciaContaFrame extends JFrame{
 					{
 						jsource.setEnabled(true);
 						dispose();
-					}
-				
-				//GerenteJFrame.this.setEnabled(false);
-				//InstanciaContaFrame aux = new InstanciaContaFrame(GerenteJFrame.this.createOptionsToSelect.getSelectedItem().toString(), dimensaoFrame, GerenteJFrame.this);
-				
-				
-				//dispose();
-				
-				/*
-				option.replaceAll("\\s+","");
-				try {
-					Object xyz = Class.forName(option).newInstance();
-				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-				
+					}				
 			}
 		});
 		
