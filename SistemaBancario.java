@@ -3,15 +3,21 @@ package programa;
 import java.util.Scanner;
 
 public class SistemaBancario {
-	private static final int tamanho = 20;
+	public static final int tamanho = 20;
 	private Scanner input = new Scanner(System.in);
 	
 	private int limite, subopcao, tentativasSenha, flagNumConta=0, flagConta=0;
+	private boolean loop=false;
     private double valorDin;
     private float taxa;
     private String nomePessoa, senhaTemp, senhaNova, numeroC;
-    protected static Conta cliente[];
+    private static Conta bancoDadosCliente[]=null;
     protected static int num=00;
+    
+    private SistemaBancario()
+    {
+    	
+    }
     
     public void menuGerente()
     {
@@ -27,7 +33,7 @@ public class SistemaBancario {
 	                 nomePessoa = input.nextLine();
 	                 if(num < 10) numeroC = "17040" + Integer.toString(num);
 	                 else numeroC = "1704" + Integer.toString(num);
-	                 cliente[num] = new ContaSimples(nomePessoa, numeroC);
+	                 bancoDadosCliente[num] = new ContaSimples(nomePessoa, numeroC);
 	                 System.out.println("Conta Simples criada com sucesso!");
 	                 num++;
 	                 break;
@@ -39,7 +45,7 @@ public class SistemaBancario {
 	                 else numeroC = "1704" + Integer.toString(num);
 	                 System.out.printf("Digite o limite estipulado: ");
 	                 limite = input.nextInt();
-	                 cliente[num] = new ContaEspecial(nomePessoa, numeroC, limite);
+	                 bancoDadosCliente[num] = new ContaEspecial(nomePessoa, numeroC, limite);
 	                 System.out.println("Conta Especial criada com sucesso!");
 	                 num++;
 	                 break;
@@ -51,7 +57,7 @@ public class SistemaBancario {
 	                 else numeroC = "1704" + Integer.toString(num);
 	                 System.out.printf("Digite a taxa de juros da conta: ");
 	                 taxa = input.nextFloat();
-	                 cliente[num] = new ContaPoupanca(nomePessoa, numeroC, taxa);
+	                 bancoDadosCliente[num] = new ContaPoupanca(nomePessoa, numeroC, taxa);
 	                 System.out.println("Conta Poupança criada com sucesso!");
 	                 num++;
 	                 break;
@@ -61,9 +67,9 @@ public class SistemaBancario {
 	                 numeroC = input.nextLine();
 	                 for(int i=0; i < num; i++)
 	                 {
-	                     if(cliente[i].getNumConta().equals(numeroC))
+	                     if(bancoDadosCliente[i].getNumConta().equals(numeroC))
 	                     {
-	                         cliente[i].printConta();
+	                         bancoDadosCliente[i].printConta();
 	                         flagNumConta = -1;
 	                         break;
 	                     }
@@ -73,18 +79,18 @@ public class SistemaBancario {
 	                 break;
 	             case 5:
 	             	for(int j=0;j< num;j++)
-	             		if(cliente[j] instanceof ContaPoupanca) ((ContaPoupanca)cliente[j]).aplicaRendimento();
+	             		if(bancoDadosCliente[j] instanceof ContaPoupanca) ((ContaPoupanca)bancoDadosCliente[j]).aplicaRendimento();
 	             	System.out.println("Foram aplicados os rendimentos em todas as contas poupanças existentes!");
 	             	break;
 	             case 6:
 	             	System.out.printf("Insira o número da taxa que deseja cobrar: ");
 	             	taxa = input.nextFloat();
 	             	for(int j=0;j< num;j++)
-	             		if(cliente[j] instanceof ContaEspecial) ((ContaEspecial)cliente[j]).cobrancaJuros(taxa);
+	             		if(bancoDadosCliente[j] instanceof ContaEspecial) ((ContaEspecial)bancoDadosCliente[j]).cobrancaJuros(taxa);
 	             	System.out.println("Foram aplicados os juros definidos em todas as contas especiais existentes!");
 	             	break;
 	             case 7:
-	             	for(int j=0;j< num;j++) cliente[j].printConta();
+	             	for(int j=0;j< num;j++) bancoDadosCliente[j].printConta();
 	             	break;
 	             case 0:
 	            	 break;
@@ -100,7 +106,7 @@ public class SistemaBancario {
             input.nextLine(); 
             numeroC = input.nextLine();
             flagConta=0;
-        	for(int i=0; i<num; i++) if(cliente[i].getNumConta().equals(numeroC)) flagConta=1;
+        	for(int i=0; i<num; i++) if(bancoDadosCliente[i].getNumConta().equals(numeroC)) flagConta=1;
         	if(flagConta==0)
         	{
         		System.out.println("Não existe tal número de conta!\n");
@@ -109,34 +115,47 @@ public class SistemaBancario {
         	tentativasSenha = 3;
 	        for(int j=0;j<num;j++)
 	        {
-	            if(cliente[j].getNumConta().equals(numeroC))
+	            if(bancoDadosCliente[j].getNumConta().equals(numeroC))
 	            {
 	            	input.nextLine();
 	            	for(tentativasSenha = 3; tentativasSenha > 0; tentativasSenha--)
 	            	{
 	                    System.out.printf("Insira sua senha de quatro dígitos (" + tentativasSenha +  " tentativa(s) restante(s)): ");			                            
 	                    senhaTemp = input.nextLine();
-	                    if(cliente[j].checaSenha(senhaTemp) == 1)
+	                    if(bancoDadosCliente[j].checaSenha(senhaTemp) == 1)
 	                    {
 	                        do 
 	                        {
-	                        	System.out.printf("\nO que deseja fazer agora, " + cliente[j].getNomeCorrentista() + "?\n1.Realizar saque\n2.Realizar depósito\n3.Visualizar informações da conta\n4. Alterar senha\n0. Sair\nOpção: ");
+	                        	System.out.printf("\nO que deseja fazer agora, " + bancoDadosCliente[j].getNomeCorrentista() + "?\n1.Realizar saque\n2.Realizar depósito\n3.Visualizar informações da conta\n4. Alterar senha\n0. Sair\nOpção: ");
 	                            subopcao = input.nextInt();
 	                            switch(subopcao)
 	                            {
 	                                  case 1:
+	                                	  do
+	                                	  {
 	                                	  System.out.printf("Insira o valor que deseja sacar: ");
 	                                	  valorDin = input.nextDouble();
-	                                      cliente[j].sacar(valorDin);
+											try {
+												bancoDadosCliente[j].sacar(valorDin);
+												loop=false;
+											} catch (ValorInsuficiente e) {
+												// TODO Auto-generated catch block
+												System.err.println("Exception: " + e);
+												e.printStackTrace();
+												System.out.println("Valor insuficiente!");
+												input.nextLine();
+												loop=true;
+											}
+	                                	  }while(loop);
 	                                      break;
 	                                  case 2:
 	                                	  System.out.printf("Insira o valor que deseja depositar: ");
 	                                	  valorDin = input.nextDouble();
-	                                      cliente[j].depositar(valorDin);
-	                                      System.out.println("Depósito realizado com sucesso!\nSaldo atual: R$ " +  cliente[j].getSaldo());
+	                                      bancoDadosCliente[j].depositar(valorDin);
+	                                      System.out.println("Depósito realizado com sucesso!\nSaldo atual: R$ " +  bancoDadosCliente[j].getSaldo());
 	                                      break;
 	                                  case 3:
-	                                	  cliente[j].printConta();
+	                                	  bancoDadosCliente[j].printConta();
 	                                	  break;
 	                                  case 4:
 	                                	  System.out.printf("Digite a senha atual: ");
@@ -144,7 +163,7 @@ public class SistemaBancario {
 	                                	  senhaTemp = input.nextLine();
 	                                	  System.out.printf("Digite a nova senha: ");
 	                                	  senhaNova = input.nextLine();
-	                                	  cliente[j].alteraSenha(senhaTemp, senhaNova);
+	                                	  bancoDadosCliente[j].alteraSenha(senhaTemp, senhaNova);
 	                                	  break;
 	                                  case 0:
 	                                	  break;
@@ -165,11 +184,24 @@ public class SistemaBancario {
     	}while(flagConta==0);
     }
     
-    public void setContaSimples(String nomePessoa)
+    public static void setContaSimples(String nomePessoa)
     {
-        
-        cliente[num] = new ContaSimples(nomePessoa, numeroC);
-        //System.out.println("Conta Simples criada com sucesso!");
+    	Conta[] banco = getInstanceContaArray();
+    	banco[num] = new ContaSimples(nomePessoa, getNumConta());
+        num++;
+    }
+    
+    public static void setContaPoupança(String nomePessoa, float taxa)
+    {
+    	Conta[] banco = getInstanceContaArray();
+    	banco[num] = new ContaPoupanca(nomePessoa, getNumConta(), taxa);
+        num++;
+    }
+    
+    public static void setContaEspecial(String nomePessoa, int limite)
+    {
+    	Conta[] banco = getInstanceContaArray();
+    	banco[num] = new ContaEspecial(nomePessoa, getNumConta(), limite);
         num++;
     }
     
@@ -181,10 +213,7 @@ public class SistemaBancario {
     
     public static Conta[] getInstanceContaArray()
     {
-    	if(cliente==null)
-    	{
-    		return new Conta[tamanho];
-    	}
-    	else return cliente;
+    	if(bancoDadosCliente==null)	bancoDadosCliente = new Conta[tamanho];
+    	return bancoDadosCliente;
     }
 }

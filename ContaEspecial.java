@@ -18,30 +18,33 @@ public class ContaEspecial extends Conta
         super(nomeCorrentista,numeroConta);
         setLimite(limite);
     }
+    
     private void setLimite(int limite)
     {
         this.limite = limite;
     }
-    private int getLimite()
+    
+    public int getLimite()
     {
     	return limite;
     }
+    
     @Override
-    public void sacar(double valor)
+    public void sacar(double valor) throws ValorInsuficiente
     {
       if(valor <= (getSaldo() + limite))
       {
           decSaldo(valor);
           System.out.println("Valor sacado: R$ " + valor + "\nSaldo atual: R$ " + getSaldo());          
       }
-      else System.out.println("Valor inválido para saque!");
+      else throw new ValorInsuficiente();
     }
-    public void printConta() 
+    
+    public String printConta() 
     {
-        System.out.printf("-----Infos da Conta------\nTipo de Conta: Conta Especial\n");
-        super.printConta();
-        System.out.println("Limite: " + getLimite());
+        return ("Tipo da conta: Especial\n" + super.printConta() + "\nLimite: " + getLimite() + "\n");
     }
+    
     public void cobrancaJuros(float quantJuros)
     {
     	double saldoCobranca = getSaldo();
@@ -51,4 +54,9 @@ public class ContaEspecial extends Conta
     		decSaldo(saldoCobranca);
     	}
     }
+    @Override
+	protected String getTipoConta() {
+		// TODO Auto-generated method stub
+		return "Conta Especial";
+	}
 }

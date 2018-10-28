@@ -18,15 +18,9 @@ public abstract class Conta
     this.setNumConta(numeroConta);
   }
   
-  public abstract void sacar(double valor);
-  /*if(valor <= saldo)
-  {
-      decSaldo(valor);
-      System.out.println("Valor sacado: R$ " + valor + "\nSaldo atual: R$ " + getSaldo());          
-  }
-  else System.out.println("Valor inválido para saque!");*/
+  public abstract void sacar(double valor) throws ValorInsuficiente;
   
-  public void decSaldo(double saldo)
+  protected void decSaldo(double saldo)
   {
       this.saldo -= saldo; 
   }
@@ -56,8 +50,8 @@ public abstract class Conta
     return saldo;
   }
   
-  public void printConta() {
-    System.out.println("Num. Conta: " + getNumConta() + "\nNome: " + getNomeCorrentista() + "\nSaldo: " + getSaldo());
+  public String printConta() {
+    return ("Número conta: " + getNumConta() + "\nNome: " + getNomeCorrentista() + "\nSaldo: " + getSaldo());
   }
   
   public void alteraSenha(String senhaAntiga, String senhaNova)
@@ -74,4 +68,5 @@ public abstract class Conta
 	  if(senhaAtual.equals(senha)) return 1;
 	  else return 0;
   }
+  protected abstract String getTipoConta();
 }

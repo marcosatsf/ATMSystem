@@ -19,14 +19,14 @@ public class ContaPoupanca extends Conta{
     }
     
     @Override
-    public void sacar(double valor)
+    public void sacar(double valor) throws ValorInsuficiente
     {
   	  if(valor <= getSaldo())
   	  {
   	      decSaldo(valor);
   	      System.out.println("Valor sacado: R$ " + valor + "\nSaldo atual: R$ " + getSaldo());          
   	  }
-  	  else System.out.println("Valor inválido para saque!");
+  	  else throw new ValorInsuficiente();
     }
     
     private void setTaxaJuros(float taxaJuros)
@@ -34,16 +34,14 @@ public class ContaPoupanca extends Conta{
         this.taxaJuros = taxaJuros;
     }
     
-    private float getTaxaJuros()
+    public float getTaxaJuros()
     {
     	return taxaJuros;
     }
     
-    public void printConta() 
+    public String printConta() 
     {
-        System.out.printf("-----Infos da Conta------\nTipo de Conta: Conta Poupança\n");
-        super.printConta();
-        System.out.println("Taxa de Juros: " + getTaxaJuros());
+        return ("Tipo da conta: Poupança\n" + super.printConta() + "\nTaxa de Juros: " + getTaxaJuros() + "\n");
     }
     public void aplicaRendimento()
     {
@@ -51,4 +49,9 @@ public class ContaPoupanca extends Conta{
     	saldoTemp *= (getTaxaJuros()/100);
     	depositar(saldoTemp);
     }
+    @Override
+	protected String getTipoConta() {
+		// TODO Auto-generated method stub
+		return "Conta Poupança";
+	}
 }

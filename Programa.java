@@ -7,7 +7,7 @@ public class Programa {
 	public static void main(String[] args)
 	{
 		Scanner input = new Scanner(System.in);
-		SistemaBancario menu = new SistemaBancario();
+		SistemaBancario menu;
 		
 	    int opcao=0;
 	    
@@ -20,10 +20,10 @@ public class Programa {
 			switch(opcao)
 			{
 			    case 1:
-	                menu.menuGerente();		                
+	                //menu.menuGerente();		                
 	                break;
 	            case 2:
-	            	menu.menuCliente();
+	            	//menu.menuCliente();
 	            	break;
 	            default:
 	            	break;

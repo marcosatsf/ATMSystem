@@ -8,18 +8,22 @@ public class ContaSimples extends Conta
   {
     super(nomeCorrentista,numeroConta);
   }
-  public void printConta() {
-    System.out.printf("-----Infos da Conta------\nTipo de Conta: Conta Simples\n");
-    super.printConta();
+  public String printConta() {
+	  return ("Tipo da conta: Simples\n"+  super.printConta());
   }
   @Override
-  public void sacar(double valor)
+  public void sacar(double valor) throws ValorInsuficiente
   {
 	  if(valor <= getSaldo())
 	  {
 	      decSaldo(valor);
-	      System.out.println("Valor sacado: R$ " + valor + "\nSaldo atual: R$ " + getSaldo());          
+	      System.out.println("Valor sacado: R$ " + valor + "\nSaldo atual: R$ " + getSaldo() + "\n");          
 	  }
-	  else System.out.println("Valor inválido para saque!");
+	  else throw new ValorInsuficiente();
   }
+@Override
+	protected String getTipoConta() {
+		// TODO Auto-generated method stub
+		return "Conta Simples";
+	}
 }

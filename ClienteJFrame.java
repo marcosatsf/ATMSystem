@@ -2,6 +2,7 @@ package programa;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class ClienteJFrame extends JFrame{
 	
@@ -10,7 +11,9 @@ public class ClienteJFrame extends JFrame{
 	public ClienteJFrame(Dimension dimensaoFrame,JFrame jsource)
 	{
 		super("Cliente");	
-		
+		URL iconURL = getClass().getResource("iconMB.png");
+		ImageIcon iconFrame = new ImageIcon(iconURL);
+		super.setIconImage(iconFrame.getImage());
 		super.setLayout(gridLayout);
 		super.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		super.setSize(500,500);

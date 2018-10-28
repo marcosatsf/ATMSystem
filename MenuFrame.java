@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,9 @@ public class MenuFrame extends JFrame{
 	
 	private MenuFrame(){
 		super("Banco MBank");
+		URL iconURL = getClass().getResource("iconMB.png");
+		ImageIcon iconFrame = new ImageIcon(iconURL);
+		super.setIconImage(iconFrame.getImage());
 		super.setLayout(new GridLayout(2,1));
 		getContentPane().setBackground(Color.ORANGE);
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +45,7 @@ public class MenuFrame extends JFrame{
 			NotStyle.printStackTrace();
 		}
 				
-		JPanel painelBanner = new JPanel(new FlowLayout());
+		JPanel painelBanner = new JPanel(new BorderLayout());
 		painelBanner.setBackground(Color.ORANGE);
 		//painelBanner.setAlignmentY(BOTTOM_ALIGNMENT);
 		/*
@@ -58,7 +62,7 @@ public class MenuFrame extends JFrame{
 		frontText.setHorizontalAlignment(SwingConstants.CENTER);
 		frontText.setVerticalAlignment(SwingConstants.BOTTOM);
 		
-		JPanel painel = new JPanel();
+		JPanel painel = new JPanel(new GridLayout(2,1));
 		painel.setLayout(gridLayout);
 		painel.setBackground(Color.ORANGE);
 		painel.setPreferredSize(new Dimension(100,50));
@@ -76,8 +80,8 @@ public class MenuFrame extends JFrame{
 		JButton cliente = new JButton("Cliente");
 		cliente.setPreferredSize(new Dimension(100,40));
 		
-		painelBanner.add(imageLabel);
-		painelBanner.add(frontText);
+		painelBanner.add(frontText, BorderLayout.PAGE_END);
+		painelBanner.add(imageLabel, BorderLayout.CENTER);
 		add(painelBanner);
 		
 		painel.add(auxText);
