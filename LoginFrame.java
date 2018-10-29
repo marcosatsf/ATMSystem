@@ -26,6 +26,9 @@ import javax.swing.border.TitledBorder;
 
 public class LoginFrame extends JFrame{
 
+	private int frameWidth = 500;
+	private int frameHeight = 500;
+	private int menuHeight = 40;
 	
 	public LoginFrame(Dimension dimensaoFrame, JFrame jsource, Conta account) {
 		// TODO Auto-generated constructor stub
@@ -33,11 +36,13 @@ public class LoginFrame extends JFrame{
 		URL iconURL = getClass().getResource("iconMB.png");
 		ImageIcon iconFrame = new ImageIcon(iconURL);
 		super.setIconImage(iconFrame.getImage());
-		super.setLayout(new FlowLayout());
+		super.setLayout(new BorderLayout());
 		JPanel accountMenu = new JPanel(new GridBagLayout());
+		accountMenu.setPreferredSize(new Dimension(frameWidth,frameHeight-menuHeight));
+		accountMenu.setBackground(Color.ORANGE);
 		GridBagConstraints modifier = new GridBagConstraints();
 		super.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		super.setSize(500,500);
+		super.setSize(frameWidth,frameHeight);
 		super.setResizable(false);
 		getContentPane().setBackground(Color.ORANGE);		
 		
@@ -45,9 +50,9 @@ public class LoginFrame extends JFrame{
 		
 		JPanel menuPanel = new JPanel(new BorderLayout());
 		menuPanel.setAlignmentY(TOP_ALIGNMENT);
-		menuPanel.setBounds(0, 0, 500, 50);
-		//menuPanel.setPreferredSize(new Dimension(500,60));
-		//MenuPanel.setBorder(MenuFrame.borderVis);
+		//menuPanel.setBounds(0, 0, 500, 50);
+		menuPanel.setPreferredSize(new Dimension(frameWidth,40));
+		menuPanel.setBorder(MenuFrame.borderVis);
 		menuPanel.setBackground(new Color(186, 138, 82));
 		JLabel infoNome = new JLabel(account.getNomeCorrentista());
 		infoNome.setFont(MenuFrame.bankFont.deriveFont(1, 15));
@@ -58,7 +63,7 @@ public class LoginFrame extends JFrame{
 		
 		
 		JPanel accountPanel = new JPanel(new FlowLayout());
-		accountPanel.setPreferredSize(new Dimension(500,150));
+		accountPanel.setPreferredSize(new Dimension(frameWidth,200));
 		accountPanel.setBorder(MenuFrame.borderVis);
 		accountPanel.setBackground(Color.ORANGE);
 		TitledBorder borderPrefabInfo;
@@ -67,7 +72,7 @@ public class LoginFrame extends JFrame{
 		borderPrefabInfo.setTitlePosition(TitledBorder.CENTER);
 		borderPrefabInfo.setTitleFont(MenuFrame.bankFont);
 		accountPanel.setBorder(borderPrefabInfo);
-		JTextArea infoConta = new JTextArea(6,20);
+		JTextArea infoConta = new JTextArea(6,30);
 		infoConta.setBackground(new Color(186, 138, 82));
 		infoConta.setFont(MenuFrame.bankFont);
 		infoConta.setLineWrap(true);
@@ -75,7 +80,7 @@ public class LoginFrame extends JFrame{
 		
 		
 		JPanel withdrawPanel = new JPanel(new FlowLayout());
-		withdrawPanel.setPreferredSize(new Dimension(500,80));
+		withdrawPanel.setPreferredSize(new Dimension(frameWidth,80));
 		withdrawPanel.setBorder(MenuFrame.borderVis);
 		withdrawPanel.setBackground(Color.ORANGE);
 		TitledBorder borderPrefabW;
@@ -92,7 +97,7 @@ public class LoginFrame extends JFrame{
 		
 		
 		JPanel depositPanel = new JPanel(new FlowLayout());
-		depositPanel.setPreferredSize(new Dimension(500,80));
+		depositPanel.setPreferredSize(new Dimension(frameWidth,80));
 		depositPanel.setBorder(MenuFrame.borderVis);
 		depositPanel.setBackground(Color.ORANGE);
 		TitledBorder borderPrefabD;
@@ -101,42 +106,43 @@ public class LoginFrame extends JFrame{
 		borderPrefabD.setTitlePosition(TitledBorder.CENTER);
 		borderPrefabD.setTitleFont(MenuFrame.bankFont);
 		depositPanel.setBorder(borderPrefabD);
-		JTextField deposit = new JTextField(8);
+		JTextField deposit = new JTextField(6);
 		JButton depositButton = new JButton("Depositar");
 		JLabel quant2 = new JLabel("Quantidade: ");
 		quant2.setFont(MenuFrame.bankFont.deriveFont(1, 12));
 		
 		
 		modifier.insets = new Insets(0,0,0,0);
-		//modifier.fill = GridBagConstraints.HORIZONTAL;
+		
 		modifier.gridx = 0;
 		modifier.gridy = 0;
-		modifier.weightx = 0.0;		
+		//modifier.weightx = 0.0;		
 		
 		menuPanel.add(infoNome, BorderLayout.WEST);
 		menuButtons.add(config);
 		menuButtons.add(logout);
 		menuPanel.add(menuButtons, BorderLayout.EAST);
-		add(menuPanel, BorderLayout.NORTH);
+		add(menuPanel, BorderLayout.PAGE_START);
 	
 		
-		modifier.insets = new Insets(10,5,10,5);
+		modifier.insets = new Insets(10,0,10,0);
+		modifier.fill = GridBagConstraints.HORIZONTAL;
 		//modifier.fill = GridBagConstraints.NONE;
-		modifier.gridy = 1;
+		//modifier.gridy = 0;
 		//modifier.ipadx = 10;
 		//modifier.ipady = 10;	
 		
 		accountPanel.add(infoConta);	
 		accountMenu.add(accountPanel, modifier);
 		
-		modifier.gridy = 2;
+		modifier.gridy = 1;
 		
 		withdrawPanel.add(quant1);
 		withdrawPanel.add(withdraw);
 		withdrawPanel.add(whithdrawButton);
 		accountMenu.add(withdrawPanel, modifier);
 		
-		modifier.gridy = 3;
+		modifier.gridy = 2;
 		
 		depositPanel.add(quant2);
 		depositPanel.add(deposit);
@@ -200,8 +206,11 @@ public class LoginFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				int option = JOptionPane.showConfirmDialog(null, "Deseja realmente deslogar da sua sessão, " + account.getNomeCorrentista() + "?", "Confirmar logoff",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				if(option == JOptionPane.YES_OPTION) dispose();
-				jsource.setVisible(true);
+				if(option == JOptionPane.YES_OPTION)
+				{
+					dispose();
+					jsource.setVisible(true);
+				}
 			}
 		}
 		);
