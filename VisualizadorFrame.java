@@ -28,7 +28,6 @@ public class VisualizadorFrame extends JFrame{
 	private final int maxForms = textVar.length;
 	public int c;
 	public JTextArea accountSelected;
-	private Border borderVis = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 
 	public VisualizadorFrame(String qualVis, Dimension dimensaoFrame, GerenteJFrame jsource) {
 		super("Visualização de contas");
@@ -45,7 +44,7 @@ public class VisualizadorFrame extends JFrame{
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(10,5,10,5);
 		JPanel whichAccountPanel = new JPanel(new FlowLayout());
-		whichAccountPanel.setBorder(borderVis);
+		whichAccountPanel.setBorder(MenuFrame.borderVis);
 		whichAccountPanel.setBackground(Color.ORANGE);
 		JLabel whichAccountText = new JLabel();
 		whichAccountText.setFont(MenuFrame.bankFont);
@@ -69,7 +68,7 @@ public class VisualizadorFrame extends JFrame{
 			
 			JPanel accountPanel = new JPanel(new FlowLayout());
 			accountPanel.setPreferredSize(new Dimension(230,180));
-			accountPanel.setBorder(borderVis);
+			accountPanel.setBorder(MenuFrame.borderVis);
 			accountPanel.setBackground(Color.ORANGE);
 			
 			JLabel accountText = new JLabel("Info da conta");

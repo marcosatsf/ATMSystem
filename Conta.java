@@ -51,7 +51,7 @@ public abstract class Conta
   }
   
   public String printConta() {
-    return ("Número conta: " + getNumConta() + "\nNome: " + getNomeCorrentista() + "\nSaldo: " + getSaldo());
+    return ("Número conta: " + getNumConta() + "\nNome: " + getNomeCorrentista() + "\nSaldo: R$" + getSaldo());
   }
   
   public void alteraSenha(String senhaAntiga, String senhaNova)

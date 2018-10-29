@@ -42,7 +42,7 @@ public class ContaEspecial extends Conta
     
     public String printConta() 
     {
-        return ("Tipo da conta: Especial\n" + super.printConta() + "\nLimite: " + getLimite() + "\n");
+        return ("Tipo da conta: Especial\n" + super.printConta() + "\nLimite: R$ " + getLimite() + "\n");
     }
     
     public void cobrancaJuros(float quantJuros)

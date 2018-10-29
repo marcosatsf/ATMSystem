@@ -41,7 +41,7 @@ public class ContaPoupanca extends Conta{
     
     public String printConta() 
     {
-        return ("Tipo da conta: Poupança\n" + super.printConta() + "\nTaxa de Juros: " + getTaxaJuros() + "\n");
+        return ("Tipo da conta: Poupança\n" + super.printConta() + "\nTaxa de Juros: +" + getTaxaJuros() + " %\n");
     }
     public void aplicaRendimento()
     {

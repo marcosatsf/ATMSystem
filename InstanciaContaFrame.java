@@ -47,7 +47,7 @@ public class InstanciaContaFrame extends JFrame{
 		
 		JPanel layoutPanel = new JPanel(new SpringLayout());
 		layoutPanel.setBackground(Color.ORANGE);
-		layoutPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		layoutPanel.setBorder(MenuFrame.borderVis);
 		
 		JPanel topText = new JPanel();
 		topText.setBackground(new Color(186, 138, 82));

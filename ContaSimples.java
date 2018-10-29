@@ -14,11 +14,7 @@ public class ContaSimples extends Conta
   @Override
   public void sacar(double valor) throws ValorInsuficiente
   {
-	  if(valor <= getSaldo())
-	  {
-	      decSaldo(valor);
-	      System.out.println("Valor sacado: R$ " + valor + "\nSaldo atual: R$ " + getSaldo() + "\n");          
-	  }
+	  if(valor <= getSaldo()) decSaldo(valor);      
 	  else throw new ValorInsuficiente();
   }
 @Override

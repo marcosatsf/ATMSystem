@@ -12,12 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 
 public class MenuFrame extends JFrame{
 	
 	public static MenuFrame instancia=null;
 	public static Font bankFont = new Font("Trebuchet MS", Font.BOLD, 14);
+	public static Border borderVis = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 	public GridLayout gridLayout = new GridLayout(4,1,30,10);
 	public Dimension dimensao = Toolkit.getDefaultToolkit().getScreenSize();
 	
@@ -28,7 +31,7 @@ public class MenuFrame extends JFrame{
 		super.setIconImage(iconFrame.getImage());
 		super.setLayout(new GridLayout(2,1));
 		getContentPane().setBackground(Color.ORANGE);
-		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		super.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		super.setSize(500,500);
 		super.setResizable(false);
 		this.setLocation((dimensao.width - this.getSize().width)/2, (dimensao.height - this.getSize().height)/2);
@@ -112,16 +115,8 @@ public class MenuFrame extends JFrame{
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent event)
 			{
-				//JOptionPane.showConfirmDialog(null, "Deseja realmente sair?")				
-				Object[] options = { "Sim", "Não" };
-				int option = JOptionPane.showOptionDialog(null, "Deseja realmente sair?", "Confirmar saída",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, options, options[0]);
-				switch(option)
-				{
-				case 0:
-					break;
-				case 1:
-					break;
-				}
+				int option = JOptionPane.showConfirmDialog(null, "Deseja realmente sair?", "Confirmar saída",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(option == JOptionPane.YES_OPTION) System.exit(0);
 			}
 		});
 		

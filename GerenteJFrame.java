@@ -45,7 +45,8 @@ public class GerenteJFrame extends JFrame{
 		
 		TitledBorder borderPrefab1;
 		borderPrefab1 = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-		borderPrefab1.setTitle("Criação de contas:");
+		borderPrefab1.setTitle("Criação de contas");
+		borderPrefab1.setTitlePosition(TitledBorder.CENTER);
 		borderPrefab1.setTitleFont(MenuFrame.bankFont);
 		createOptionSelectPanel.setBorder(borderPrefab1);
 		createOptionsToSelect = new JComboBox(createOptions);
@@ -70,7 +71,8 @@ public class GerenteJFrame extends JFrame{
 		
 		TitledBorder borderPrefab2;
 		borderPrefab2 = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-		borderPrefab2.setTitle("Visualizar contas:");
+		borderPrefab2.setTitle("Visualizar contas");
+		borderPrefab2.setTitlePosition(TitledBorder.CENTER);
 		borderPrefab2.setTitleFont(MenuFrame.bankFont);
 		visualizeOptionSelectPanel.setBorder(borderPrefab2);
 		visualizeOptionsToSelect = new JComboBox(visualizeOptions);
@@ -104,6 +106,7 @@ public class GerenteJFrame extends JFrame{
 		TitledBorder borderPrefab3;
 		borderPrefab3 = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		borderPrefab3.setTitle("Aplicar rendimentos (apenas para conta Poupança)");
+		borderPrefab3.setTitlePosition(TitledBorder.CENTER);
 		borderPrefab3.setTitleFont(MenuFrame.bankFont);
 		yieldAdd.setBorder(borderPrefab3);
 		
@@ -135,6 +138,7 @@ public class GerenteJFrame extends JFrame{
 		TitledBorder borderPrefab4;
 		borderPrefab4 = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		borderPrefab4.setTitle("Cobrar juros sobre contas em débito (apenas para conta Especial)");
+		borderPrefab4.setTitlePosition(TitledBorder.CENTER);
 		borderPrefab4.setTitleFont(MenuFrame.bankFont);
 		chargeInterest.setBorder(borderPrefab4);
 		
