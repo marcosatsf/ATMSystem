@@ -106,7 +106,7 @@ public class LoginFrame extends JFrame{
 		borderPrefabD.setTitlePosition(TitledBorder.CENTER);
 		borderPrefabD.setTitleFont(MenuFrame.bankFont);
 		depositPanel.setBorder(borderPrefabD);
-		JTextField deposit = new JTextField(6);
+		JTextField deposit = new JTextField(8);
 		JButton depositButton = new JButton("Depositar");
 		JLabel quant2 = new JLabel("Quantidade: ");
 		quant2.setFont(MenuFrame.bankFont.deriveFont(1, 12));
@@ -189,7 +189,9 @@ public class LoginFrame extends JFrame{
 					account.depositar(depositarDouble);
 					//JOptionPane.showMessageDialog(null,"","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
 					ProgressoOperacao progress = new ProgressoOperacao("depositado", depositarDouble, dimensaoFrame);
-					progress.teste.execute();					
+					progress.teste.execute();	
+					infoConta.setText(account.printConta());
+					LoginFrame.this.validate();
 				}
 				catch(NumberFormatException e)
 				{
@@ -198,6 +200,18 @@ public class LoginFrame extends JFrame{
 				}
 			}
 		});
+		
+		config.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setEnabled(false);
+				ConfigConta configuracao = new ConfigConta(dimensaoFrame, account, jsource);
+			}
+		}
+		);
 		
 		logout.addActionListener(new ActionListener()
 		{

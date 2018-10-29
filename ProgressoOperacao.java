@@ -27,7 +27,7 @@ public class ProgressoOperacao extends JFrame{
 		setLayout(new GridLayout(3,1));
 		setBackground(Color.ORANGE);
 		
-		this.setLocation((dimensaoFrame.width - this.getSize().width)/2, (dimensaoFrame.height - this.getSize().height)/2);
+		this.setLocation((dimensaoFrame.width - this.getSize().width)/4, (dimensaoFrame.height - this.getSize().height)/4);
 		
 		operando = new JProgressBar();
 		operando.setStringPainted(true);

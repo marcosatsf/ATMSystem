@@ -1,15 +1,18 @@
 package programa;
 
+import java.awt.Color;
 
 public abstract class Conta
 {
   protected String nomeCorrentista, senha,numeroConta;
   protected double saldo;
+  private Color cor;
   
   public Conta()
   {
 		saldo = 0d;
 	    senha = "0000";
+	    setCor(Color.ORANGE);
   }
   public Conta(String nomeCorrentista, String numeroConta)
   {
@@ -20,7 +23,13 @@ public abstract class Conta
   
   public abstract void sacar(double valor) throws ValorInsuficiente;
   
-  protected void decSaldo(double saldo)
+  public Color getCor() {
+	return cor;
+}
+public void setCor(Color cor) {
+	this.cor = cor;
+}
+protected void decSaldo(double saldo)
   {
       this.saldo -= saldo; 
   }
