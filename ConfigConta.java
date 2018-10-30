@@ -20,8 +20,10 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpringLayout;
@@ -31,15 +33,19 @@ import javax.swing.border.TitledBorder;
 
 public class ConfigConta extends JFrame{
 
-	private JList colorList;
-	private final String[] corLista = {
+	public JList colorList;
+	public final String[] corLista = {
 			"Branco", "Vermelho", "Magenta", "Laranja", "Verde", "Azul", "Amarelo","Rosa","Ciano","Cinza",
-			"Cinza claro", "Cinza escuro"};
-private final Color[] corListaChoose = {Color.WHITE,Color.RED, Color.MAGENTA, Color.ORANGE, Color.GREEN,Color.BLUE,Color.YELLOW,
-			Color.PINK,Color.CYAN,Color.LIGHT_GRAY,Color.DARK_GRAY};
-	private final String[] textVarSenha = {"Senha atual","Senha antiga"};
+			"Cinza claro"};
+	public final Color[] corListaChoose = {Color.WHITE,new Color(165, 0, 1), new Color(144, 13, 136), Color.ORANGE, new Color(55, 141, 59),new Color(45, 77, 157),Color.YELLOW,
+			Color.PINK,Color.CYAN,Color.GRAY,Color.LIGHT_GRAY};
+	public final Color[] corListaChooseDark = {Color.LIGHT_GRAY,new Color(83, 0, 1), Color.MAGENTA, new Color(186, 138, 82),new Color(0, 90, 16), new Color(0, 0, 88),new Color(184, 153, 0),
+			new Color(184, 0, 159), new Color(47, 102, 159), new Color(66, 5, 5),new Color(35, 70, 88)};
+	public final String[] textVarSenha = {"Senha atual","Nova senha"};
 	
-	public ConfigConta(Dimension dimensaoFrame, Conta account, JFrame jsource) {
+	public JPanel accountPanel, layoutPanel, passPanel,buttonPanel;
+	
+	public ConfigConta(Dimension dimensaoFrame, Conta account, JFrame jsource, JPanel menuPanel, JPanel menuButtons, JPanel accountPanel2, JPanel withdrawPanel, JPanel depositPanel, JPanel accountMenu, JTextArea infoConta) {
 		// TODO Auto-generated constructor stub
 		super("Configuração da conta " + account.getNumConta());
 		URL iconURL = getClass().getResource("iconMB.png");
@@ -49,24 +55,20 @@ private final Color[] corListaChoose = {Color.WHITE,Color.RED, Color.MAGENTA, Co
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(10,5,10,5);
 		super.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		super.setSize(400,240);
+		super.setSize(500,240);
 		super.setResizable(false);
-		getContentPane().setBackground(Color.ORANGE);
+		getContentPane().setBackground(account.getAuxcor());
 		
 		this.setLocation((dimensaoFrame.width - this.getSize().width)/2, (dimensaoFrame.height - this.getSize().height)/2);
 		
-		JPanel options = new JPanel(new FlowLayout());
-		options.setBorder(MenuFrame.borderVis);
-		options.setBackground(Color.ORANGE);
-		JLabel whichOption = new JLabel();
-		whichOption.setFont(MenuFrame.bankFont);
-		
-		JPanel accountPanel = new JPanel(new FlowLayout());
+		//chgColor		
+		accountPanel = new JPanel(new BorderLayout());
 		accountPanel.setPreferredSize(new Dimension(230,180));
 		accountPanel.setBorder(MenuFrame.borderVis);
-		accountPanel.setBackground(Color.ORANGE);
+		accountPanel.setBackground(account.getCor());
 		JLabel colorListText = new JLabel();
-		colorListText.setFont(MenuFrame.bankFont);
+		colorListText.setFont(MenuFrame.bankFont.deriveFont(1, 20));
+		colorListText.setHorizontalAlignment(SwingConstants.CENTER);
 		colorListText.setText("Selecione a cor");
 		colorList = new JList(corLista);
 		colorList.setVisibleRowCount(3);
@@ -74,69 +76,108 @@ private final Color[] corListaChoose = {Color.WHITE,Color.RED, Color.MAGENTA, Co
 		
 		JButton chgColor = new JButton("Mudar");
 		chgColor.setPreferredSize(new Dimension(100,30));
-	
+		
 		chgColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				// TODO Auto-generated method stub
-				ConfigConta.this.getContentPane().setBackground(corListaChoose[colorList.getSelectedIndex()]);
+				ConfigConta.this.getContentPane().setBackground(corListaChooseDark[colorList.getSelectedIndex()]);
+				ConfigConta.this.accountPanel.setBackground(corListaChoose[colorList.getSelectedIndex()]);
+				ConfigConta.this.layoutPanel.setBackground(corListaChoose[colorList.getSelectedIndex()]);
+				ConfigConta.this.passPanel.setBackground(corListaChoose[colorList.getSelectedIndex()]);
+				ConfigConta.this.buttonPanel.setBackground(corListaChoose[colorList.getSelectedIndex()]);
+				account.setCor(corListaChoose[colorList.getSelectedIndex()]);
+				account.setAuxcor(corListaChooseDark[colorList.getSelectedIndex()]);
 			}
 		});
 		
-		JPanel layoutPanel = new JPanel(new SpringLayout());
-		layoutPanel.setBackground(Color.ORANGE);
+		//chgPassword
+		layoutPanel = new JPanel(new BorderLayout());
+		layoutPanel.setPreferredSize(new Dimension(230,180));
+		layoutPanel.setBackground(account.getCor());
 		layoutPanel.setBorder(MenuFrame.borderVis);
 		
-		JPanel topText = new JPanel();
-		topText.setBackground(new Color(186, 138, 82));
-		topText.setAlignmentY(topText.getAlignmentY()/4);
-		JLabel tipoConta = new JLabel("Configuração");
+		passPanel = new JPanel(new SpringLayout());
+		passPanel.setBackground(account.getCor());
+		passPanel.setBorder(MenuFrame.borderVis);
+		
+		JLabel tipoConta = new JLabel("Alteração de senha");
 		tipoConta.setHorizontalAlignment(SwingConstants.CENTER);
 		tipoConta.setFont(MenuFrame.bankFont.deriveFont(1, 20));
-		topText.add(tipoConta);
-		
-		add(topText,BorderLayout.NORTH);
 		
 		JTextField entradaDados[] = new JTextField[2];
 		for(int i=0;i<2;i++)
 		{
 			JLabel textoAtual = new JLabel(textVarSenha[i], JLabel.TRAILING);
 			textoAtual.setFont(MenuFrame.bankFont);
-			layoutPanel.add(textoAtual);
+			passPanel.add(textoAtual);
 			entradaDados[i] = new JTextField(10);
-			layoutPanel.add(entradaDados[i]);
+			passPanel.add(entradaDados[i]);
 		}
 		
-		SpringUtilities.makeCompactGrid(layoutPanel, 2, 2, 10, 10, 6, 6);
-	
-		whichOption.add(colorListText);
-		whichOption.add(new JScrollPane(colorList));
+		SpringUtilities.makeCompactGrid(passPanel, 2, 2, 10, 10, 6, 6);
 		
-		accountPanel.add(accountText);
-		accountPanel.add(accountSelected);	
-		
-		add(whichAccountPanel, c);
-		add(accountPanel, c);
-		
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBackground(new Color(186, 138, 82));
-		JButton set = new JButton("Criar");
-		set.setAlignmentX(CENTER_ALIGNMENT);
+		buttonPanel = new JPanel();
+		buttonPanel.setBackground(account.getCor());
+		JButton changePass = new JButton("Alterar");
+		changePass.setAlignmentX(CENTER_ALIGNMENT);
 		buttonPanel.setPreferredSize(new Dimension(50,50));
+		buttonPanel.add(changePass, BorderLayout.CENTER);
+	
+		accountPanel.add(colorListText, BorderLayout.PAGE_START);
+		accountPanel.add(new JScrollPane(colorList), BorderLayout.CENTER);
+		accountPanel.add(chgColor, BorderLayout.PAGE_END);
 		
-		buttonPanel.add(set);
+		layoutPanel.add(tipoConta, BorderLayout.PAGE_START);
+		layoutPanel.add(passPanel, BorderLayout.CENTER);
+		layoutPanel.add(buttonPanel, BorderLayout.PAGE_END);
 		
-		add(buttonPanel,BorderLayout.SOUTH);
+		add(accountPanel, c);
+		add(layoutPanel, c);
+		
+		changePass.addActionListener(new ActionListener()
+			{
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					if(!entradaDados[0].getText().equals("") || !entradaDados[1].getText().equals(""))
+					{
+						try
+						{
+							account.alteraSenha(entradaDados[0].getText(), entradaDados[1].getText());
+							JOptionPane.showMessageDialog(null,"Senha alterada com sucesso!","Informativo sobre mudança de senha",JOptionPane.INFORMATION_MESSAGE);
+						}
+						catch(NotTheSamePassword e)
+						{
+							JOptionPane.showMessageDialog(null,"Não foi possível alterar a senha pois a atual está incorreta!","Informativo sobre mudança de senha",JOptionPane.ERROR_MESSAGE);
+							System.err.println(e);
+						}
+					}
+					else JOptionPane.showMessageDialog(null,"Campo nulo encontrado, insira todas as informações!","Informativo sobre mudança de senha",JOptionPane.WARNING_MESSAGE);
+				}
+		
+			}
+		);
 		
 		addWindowListener(new java.awt.event.WindowAdapter(){
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent event)
 			{
 				jsource.setEnabled(true);
-				dispose();
+				menuPanel.setBackground(account.getAuxcor());
+				menuButtons.setBackground(account.getAuxcor());
+				accountPanel2.setBackground(account.getCor());
+				withdrawPanel.setBackground(account.getCor());
+				depositPanel.setBackground(account.getCor());
+				infoConta.setBackground(account.getAuxcor());
+				accountMenu.setBackground(account.getCor());
+				//jsource.revalidate();
+				//jsource.setVisible(true);
 			}
 		});
 		
+		setVisible(true);
 	}
 
 }

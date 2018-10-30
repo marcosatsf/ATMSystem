@@ -1,18 +1,20 @@
 package programa;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
 
 public abstract class Conta
 {
   protected String nomeCorrentista, senha,numeroConta;
   protected double saldo;
-  private Color cor;
+  private Color cor, auxcor;
   
   public Conta()
   {
 		saldo = 0d;
 	    senha = "0000";
 	    setCor(Color.ORANGE);
+	    setAuxcor(new Color(186, 138, 82));
   }
   public Conta(String nomeCorrentista, String numeroConta)
   {
@@ -28,6 +30,12 @@ public abstract class Conta
 }
 public void setCor(Color cor) {
 	this.cor = cor;
+}
+public Color getAuxcor() {
+	return auxcor;
+}
+public void setAuxcor(Color auxcor) {
+	this.auxcor = auxcor;
 }
 protected void decSaldo(double saldo)
   {
@@ -60,17 +68,13 @@ protected void decSaldo(double saldo)
   }
   
   public String printConta() {
-    return ("Número conta: " + getNumConta() + "\nNome: " + getNomeCorrentista() + "\nSaldo: R$" + getSaldo());
+    return ("Número conta: " + getNumConta() + "\nNome: " + getNomeCorrentista() + "\nSaldo: R$" + String.format("%.2f", getSaldo()));
   }
   
-  public void alteraSenha(String senhaAntiga, String senhaNova)
+  public void alteraSenha(String senhaAntiga, String senhaNova) throws NotTheSamePassword
   {
-      if(senhaAntiga == senha)
-      {
-          senha = senhaNova;
-          System.out.println("Senha alterada com sucesso!");
-      }
-      else System.out.println("Senha atual incorreta!");
+      if(senhaAntiga.equals(senha)) senha = senhaNova;
+      else throw new NotTheSamePassword();
   }
   public int checaSenha(String senhaAtual)
   {

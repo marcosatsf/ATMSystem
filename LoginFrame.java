@@ -30,6 +30,8 @@ public class LoginFrame extends JFrame{
 	private int frameHeight = 500;
 	private int menuHeight = 40;
 	
+	public JPanel menuPanel, menuButtons,accountPanel, withdrawPanel, depositPanel;
+	
 	public LoginFrame(Dimension dimensaoFrame, JFrame jsource, Conta account) {
 		// TODO Auto-generated constructor stub
 		super("Bem-vindo(a), " + account.getNomeCorrentista());
@@ -39,33 +41,33 @@ public class LoginFrame extends JFrame{
 		super.setLayout(new BorderLayout());
 		JPanel accountMenu = new JPanel(new GridBagLayout());
 		accountMenu.setPreferredSize(new Dimension(frameWidth,frameHeight-menuHeight));
-		accountMenu.setBackground(Color.ORANGE);
+		accountMenu.setBackground(account.getCor());
 		GridBagConstraints modifier = new GridBagConstraints();
 		super.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		super.setSize(frameWidth,frameHeight);
 		super.setResizable(false);
-		getContentPane().setBackground(Color.ORANGE);		
+		getContentPane().setBackground(account.getCor());		
 		
 		this.setLocation((dimensaoFrame.width - this.getSize().width)/2, (dimensaoFrame.height - this.getSize().height)/2);
 		
-		JPanel menuPanel = new JPanel(new BorderLayout());
+		menuPanel = new JPanel(new BorderLayout());
 		menuPanel.setAlignmentY(TOP_ALIGNMENT);
 		//menuPanel.setBounds(0, 0, 500, 50);
 		menuPanel.setPreferredSize(new Dimension(frameWidth,40));
 		menuPanel.setBorder(MenuFrame.borderVis);
-		menuPanel.setBackground(new Color(186, 138, 82));
-		JLabel infoNome = new JLabel(account.getNomeCorrentista());
+		menuPanel.setBackground(account.getAuxcor());
+		JLabel infoNome = new JLabel(" Sr(a). " + account.getNomeCorrentista());
 		infoNome.setFont(MenuFrame.bankFont.deriveFont(1, 15));
-		JPanel menuButtons = new JPanel(new FlowLayout());
-		menuButtons.setBackground(new Color(186, 138, 82));
+		menuButtons = new JPanel(new FlowLayout());
+		menuButtons.setBackground(account.getAuxcor());
 		JButton config = new JButton("Configurações");
 		JButton logout = new JButton("Sair");
 		
 		
-		JPanel accountPanel = new JPanel(new FlowLayout());
-		accountPanel.setPreferredSize(new Dimension(frameWidth,200));
+		accountPanel = new JPanel(new FlowLayout());
+		accountPanel.setPreferredSize(new Dimension(frameWidth-menuHeight,190));
 		accountPanel.setBorder(MenuFrame.borderVis);
-		accountPanel.setBackground(Color.ORANGE);
+		accountPanel.setBackground(account.getCor());
 		TitledBorder borderPrefabInfo;
 		borderPrefabInfo = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		borderPrefabInfo.setTitle("Informações sobre a conta");
@@ -73,16 +75,17 @@ public class LoginFrame extends JFrame{
 		borderPrefabInfo.setTitleFont(MenuFrame.bankFont);
 		accountPanel.setBorder(borderPrefabInfo);
 		JTextArea infoConta = new JTextArea(6,30);
-		infoConta.setBackground(new Color(186, 138, 82));
+		infoConta.setBackground(account.getAuxcor());
+		infoConta.setEditable(false);
 		infoConta.setFont(MenuFrame.bankFont);
 		infoConta.setLineWrap(true);
 		infoConta.setText(account.printConta());
 		
 		
-		JPanel withdrawPanel = new JPanel(new FlowLayout());
-		withdrawPanel.setPreferredSize(new Dimension(frameWidth,80));
+		withdrawPanel = new JPanel(new FlowLayout());
+		withdrawPanel.setPreferredSize(new Dimension(frameWidth-menuHeight,80));
 		withdrawPanel.setBorder(MenuFrame.borderVis);
-		withdrawPanel.setBackground(Color.ORANGE);
+		withdrawPanel.setBackground(account.getCor());
 		TitledBorder borderPrefabW;
 		borderPrefabW = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		borderPrefabW.setTitle("Realizar saque");
@@ -96,10 +99,10 @@ public class LoginFrame extends JFrame{
 		
 		
 		
-		JPanel depositPanel = new JPanel(new FlowLayout());
-		depositPanel.setPreferredSize(new Dimension(frameWidth,80));
+		depositPanel = new JPanel(new FlowLayout());
+		depositPanel.setPreferredSize(new Dimension(frameWidth-menuHeight,80));
 		depositPanel.setBorder(MenuFrame.borderVis);
-		depositPanel.setBackground(Color.ORANGE);
+		depositPanel.setBackground(account.getCor());
 		TitledBorder borderPrefabD;
 		borderPrefabD = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		borderPrefabD.setTitle("Realizar depósito");
@@ -160,10 +163,10 @@ public class LoginFrame extends JFrame{
 				{
 					double sacarDouble = Double.parseDouble(withdraw.getText());
 					account.sacar(sacarDouble);
+					infoConta.setEnabled(false);
 					//JOptionPane.showMessageDialog(null,"","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
-					ProgressoOperacao progress = new ProgressoOperacao("sacado", sacarDouble, dimensaoFrame);
+					ProgressoOperacao progress = new ProgressoOperacao("sacado", sacarDouble, dimensaoFrame, infoConta, account);
 					progress.teste.execute();
-					infoConta.setText(account.printConta());
 					LoginFrame.this.validate();
 				}
 				catch(ValorInsuficiente e)
@@ -187,10 +190,10 @@ public class LoginFrame extends JFrame{
 				{
 					double depositarDouble = Double.parseDouble(deposit.getText());
 					account.depositar(depositarDouble);
+					infoConta.setEnabled(false);
 					//JOptionPane.showMessageDialog(null,"","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
-					ProgressoOperacao progress = new ProgressoOperacao("depositado", depositarDouble, dimensaoFrame);
+					ProgressoOperacao progress = new ProgressoOperacao("depositado", depositarDouble, dimensaoFrame, infoConta, account);
 					progress.teste.execute();	
-					infoConta.setText(account.printConta());
 					LoginFrame.this.validate();
 				}
 				catch(NumberFormatException e)
@@ -207,8 +210,8 @@ public class LoginFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				setEnabled(false);
-				ConfigConta configuracao = new ConfigConta(dimensaoFrame, account, jsource);
+				LoginFrame.this.setEnabled(false);
+				ConfigConta configuracao = new ConfigConta(dimensaoFrame, account, LoginFrame.this, menuPanel, menuButtons,accountPanel, withdrawPanel, depositPanel, accountMenu, infoConta);
 			}
 		}
 		);

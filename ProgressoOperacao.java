@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
@@ -21,13 +22,13 @@ public class ProgressoOperacao extends JFrame{
 	public JButton confirm;
 	public int tempo;
 	
-	public ProgressoOperacao(String opIndicativo, double valor,Dimension dimensaoFrame) {
+	public ProgressoOperacao(String opIndicativo, double valor,Dimension dimensaoFrame, JTextArea infoConta, Conta account) {
 		// TODO Auto-generated constructor stub
 		setSize(300, 150);
 		setLayout(new GridLayout(3,1));
 		setBackground(Color.ORANGE);
 		
-		this.setLocation((dimensaoFrame.width - this.getSize().width)/4, (dimensaoFrame.height - this.getSize().height)/4);
+		this.setLocation((dimensaoFrame.width - this.getSize().width)/3, (dimensaoFrame.height - this.getSize().height)/2);
 		
 		operando = new JProgressBar();
 		operando.setStringPainted(true);
@@ -53,6 +54,7 @@ public class ProgressoOperacao extends JFrame{
 			@Override
 			protected Object doInBackground() throws Exception {
 				// TODO Auto-generated method stub
+				infoConta.setText("----Em processo de atualização----");
 				for (int i = 1; i <= 100; i++) {
 			           try
 			           {
@@ -76,6 +78,8 @@ public class ProgressoOperacao extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				// TODO Auto-generated method stub
+				infoConta.setEnabled(true);
+				infoConta.setText(account.printConta());
 				dispose();
 			}
 		});
