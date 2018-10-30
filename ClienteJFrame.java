@@ -12,6 +12,7 @@ import java.net.URL;
 public class ClienteJFrame extends JFrame{
 	
 	public GridLayout gridLayout = new GridLayout(4,1);
+	public String[] list = {"img1.png","img2.png"};
 
 	public ClienteJFrame(Dimension dimensaoFrame,JFrame jsource)
 	{
@@ -90,34 +91,37 @@ public class ClienteJFrame extends JFrame{
 		
 		JPanel yieldAdd = new JPanel();
 		yieldAdd.setBackground(Color.ORANGE);
-		yieldAdd.setMaximumSize(new Dimension(dimensaoFrame.width+50,50));
+		yieldAdd.setMaximumSize(new Dimension(dimensaoFrame.width-30,160));
 		
 		TitledBorder borderPrefab3;
 		borderPrefab3 = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-		borderPrefab3.setTitle("Aplicar rendimentos (apenas para conta Poupança)");
+		borderPrefab3.setTitle("Informações");
 		borderPrefab3.setTitleFont(MenuFrame.bankFont);
 		yieldAdd.setBorder(borderPrefab3);
 		
-		JButton yieldButton = new JButton("Aplicar");
-		yieldButton.setPreferredSize(new Dimension(150,30));
+		JLabel imagem = new JLabel();
+		imagem.setBackground(Color.ORANGE);
+		imagem.setMaximumSize(new Dimension(dimensaoFrame.width-50,150));
 		
-		yieldButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				// TODO Auto-generated method stub
-				if(SistemaBancario.hasCP)
-				{
-					SistemaBancario.aplicarRend();
-					JOptionPane.showMessageDialog(null,"Foram aplicados os rendimentos em todas as contas poupanças do sistema!","Informativo sobre Conta Poupança",JOptionPane.INFORMATION_MESSAGE);
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null,"Não existe conta poupança suficiente!","Informativo sobre Conta Poupança",JOptionPane.WARNING_MESSAGE);
-				}
-			}
-		});	
+		Timer tm = new Timer(2000,new ActionListener() {
 		
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	int x = 0;
+                SetImageSize(x, imagem);
+                x += 1;
+                if(x >= list.length )x = 0; 
+            }
+            public void SetImageSize(int i, JLabel imagem){
+                ImageIcon icon = new ImageIcon(list[i]);
+                Image img = icon.getImage();
+                Image newImg = img.getScaledInstance(450, 150, Image.SCALE_SMOOTH);
+                ImageIcon newImc = new ImageIcon(newImg);
+                imagem.setIcon(newImc);
+            }
+        });
 		
+		tm.start();
 		
 		//modifier.fill = GridBagConstraints.HORIZONTAL;
 		modifier.weightx = 10;//difference between objects, x
@@ -138,7 +142,7 @@ public class ClienteJFrame extends JFrame{
 		
 		modifier.gridy = 1;
 		
-		yieldAdd.add(yieldButton);
+		yieldAdd.add(imagem);
 		//gridLayoutPanel.add(yieldAdd);
 		add(yieldAdd,modifier);
 		//add(gridLayoutPanel);

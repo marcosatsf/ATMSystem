@@ -3,33 +3,26 @@ package programa;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
 
 public class ConfigConta extends JFrame{
 
@@ -37,9 +30,9 @@ public class ConfigConta extends JFrame{
 	public final String[] corLista = {
 			"Branco", "Vermelho", "Magenta", "Laranja", "Verde", "Azul", "Amarelo","Rosa","Ciano","Cinza",
 			"Cinza claro"};
-	public final Color[] corListaChoose = {Color.WHITE,new Color(165, 0, 1), new Color(144, 13, 136), Color.ORANGE, new Color(55, 141, 59),new Color(45, 77, 157),Color.YELLOW,
+	public final Color[] corListaChoose = {Color.WHITE,new Color(165, 0, 1),  Color.MAGENTA, Color.ORANGE, new Color(55, 141, 59),new Color(45, 77, 157),Color.YELLOW,
 			Color.PINK,Color.CYAN,Color.GRAY,Color.LIGHT_GRAY};
-	public final Color[] corListaChooseDark = {Color.LIGHT_GRAY,new Color(83, 0, 1), Color.MAGENTA, new Color(186, 138, 82),new Color(0, 90, 16), new Color(0, 0, 88),new Color(184, 153, 0),
+	public final Color[] corListaChooseDark = {Color.LIGHT_GRAY,new Color(83, 0, 1), new Color(144, 13, 136), new Color(186, 138, 82),new Color(0, 90, 16), new Color(0, 0, 88),new Color(184, 153, 0),
 			new Color(184, 0, 159), new Color(47, 102, 159), new Color(66, 5, 5),new Color(35, 70, 88)};
 	public final String[] textVarSenha = {"Senha atual","Nova senha"};
 	
@@ -105,13 +98,13 @@ public class ConfigConta extends JFrame{
 		tipoConta.setHorizontalAlignment(SwingConstants.CENTER);
 		tipoConta.setFont(MenuFrame.bankFont.deriveFont(1, 20));
 		
-		JTextField entradaDados[] = new JTextField[2];
+		JPasswordField entradaDados[] = new JPasswordField[2];
 		for(int i=0;i<2;i++)
 		{
 			JLabel textoAtual = new JLabel(textVarSenha[i], JLabel.TRAILING);
 			textoAtual.setFont(MenuFrame.bankFont);
 			passPanel.add(textoAtual);
-			entradaDados[i] = new JTextField(10);
+			entradaDados[i] = new JPasswordField(10);
 			passPanel.add(entradaDados[i]);
 		}
 		
