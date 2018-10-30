@@ -89,7 +89,7 @@ public class ClienteJFrame extends JFrame{
 		
 		//aplicar rendimento
 		
-		JPanel yieldAdd = new JPanel();
+		JPanel yieldAdd = new JPanel(new FlowLayout());
 		yieldAdd.setBackground(Color.ORANGE);
 		yieldAdd.setMaximumSize(new Dimension(dimensaoFrame.width-30,160));
 		
@@ -99,10 +99,10 @@ public class ClienteJFrame extends JFrame{
 		borderPrefab3.setTitleFont(MenuFrame.bankFont);
 		yieldAdd.setBorder(borderPrefab3);
 		
-		JLabel imagem = new JLabel();
-		imagem.setBackground(Color.ORANGE);
-		imagem.setMaximumSize(new Dimension(dimensaoFrame.width-50,150));
 		
+		//imagem.setMaximumSize(new Dimension(dimensaoFrame.width-50,150));
+		
+		/*
 		Timer tm = new Timer(2000,new ActionListener() {
 		
             @Override
@@ -119,9 +119,9 @@ public class ClienteJFrame extends JFrame{
                 ImageIcon newImc = new ImageIcon(newImg);
                 imagem.setIcon(newImc);
             }
-        });
+        });*/
 		
-		tm.start();
+		//tm.start();
 		
 		//modifier.fill = GridBagConstraints.HORIZONTAL;
 		modifier.weightx = 10;//difference between objects, x
@@ -141,6 +141,13 @@ public class ClienteJFrame extends JFrame{
 		add(loginPanelFull,modifier);
 		
 		modifier.gridy = 1;
+		
+		//ImageIcon teste = new ImageIcon("img1.png");
+		ImageIcon icon = new ImageIcon("img1.png");
+		Image img = icon.getImage();
+		Icon myImgIcon = new ImageIcon(img);
+		JLabel imagem = new JLabel(myImgIcon);
+		
 		
 		yieldAdd.add(imagem);
 		//gridLayoutPanel.add(yieldAdd);

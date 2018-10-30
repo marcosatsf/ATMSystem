@@ -75,7 +75,7 @@ public class VisualizadorFrame extends JFrame{
 			accountText.setFont(MenuFrame.bankFont);
 			accountSelected = new JTextArea(6,16);
 			accountSelected.setBackground(new Color(186, 138, 82));
-			//accountSelected.setEnabled(false);
+			accountSelected.setEditable(false);
 			accountSelected.setFont(MenuFrame.bankFont);
 			accountSelected.setLineWrap(true);
 			accountSelected.setText("Escolha uma das contas para visualizar!");
@@ -108,6 +108,7 @@ public class VisualizadorFrame extends JFrame{
 			whichAccountText.setText("Conta(s) encontrada(s): " + SistemaBancario.num);
 			accountSelected = new JTextArea(16,15);
 			accountSelected.setBackground(new Color(186, 138, 82));
+			accountSelected.setEditable(false);
 			accountSelected.setFont(MenuFrame.bankFont);
 			accountSelected.setLineWrap(true);
 			
