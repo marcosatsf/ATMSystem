@@ -12,7 +12,9 @@ import java.net.URL;
 public class ClienteJFrame extends JFrame{
 	
 	public GridLayout gridLayout = new GridLayout(4,1);
-	public String[] list = {"img1.png","img2.png"};
+	public String[] listImg = {"src\\programa\\img1.png","src\\programa\\img2.png"};
+	public int whichImg=0;
+	public ImageIcon icon;
 
 	public ClienteJFrame(Dimension dimensaoFrame,JFrame jsource)
 	{
@@ -91,7 +93,7 @@ public class ClienteJFrame extends JFrame{
 		
 		JPanel yieldAdd = new JPanel(new FlowLayout());
 		yieldAdd.setBackground(Color.ORANGE);
-		yieldAdd.setMaximumSize(new Dimension(dimensaoFrame.width-30,160));
+		//yieldAdd.setMaximumSize(new Dimension(dimensaoFrame.width-30,160));
 		
 		TitledBorder borderPrefab3;
 		borderPrefab3 = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
@@ -102,24 +104,7 @@ public class ClienteJFrame extends JFrame{
 		
 		//imagem.setMaximumSize(new Dimension(dimensaoFrame.width-50,150));
 		
-		/*
-		Timer tm = new Timer(2000,new ActionListener() {
-		
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	int x = 0;
-                SetImageSize(x, imagem);
-                x += 1;
-                if(x >= list.length )x = 0; 
-            }
-            public void SetImageSize(int i, JLabel imagem){
-                ImageIcon icon = new ImageIcon(list[i]);
-                Image img = icon.getImage();
-                Image newImg = img.getScaledInstance(450, 150, Image.SCALE_SMOOTH);
-                ImageIcon newImc = new ImageIcon(newImg);
-                imagem.setIcon(newImc);
-            }
-        });*/
+
 		
 		//tm.start();
 		
@@ -142,14 +127,25 @@ public class ClienteJFrame extends JFrame{
 		
 		modifier.gridy = 1;
 		
-		//ImageIcon teste = new ImageIcon("img1.png");
-		ImageIcon icon = new ImageIcon("img1.png");
-		Image img = icon.getImage();
-		Icon myImgIcon = new ImageIcon(img);
-		JLabel imagem = new JLabel(myImgIcon);
-		
+		icon = new ImageIcon(listImg[whichImg]);
+		JLabel imagem = new JLabel();
+		imagem.setIcon(icon);
 		
 		yieldAdd.add(imagem);
+		
+		Timer tm = new Timer(1000,new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	whichImg++;
+        		icon = new ImageIcon(listImg[whichImg]);
+        		imagem.setIcon(icon);
+        		repaint();
+            	revalidate();
+            	if(whichImg >= listImg.length) whichImg = 0;
+            }
+        });
+		//tm.setInitialDelay(1000);
+		tm.start();
 		//gridLayoutPanel.add(yieldAdd);
 		add(yieldAdd,modifier);
 		//add(gridLayoutPanel);
