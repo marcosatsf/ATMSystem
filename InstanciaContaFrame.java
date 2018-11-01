@@ -3,14 +3,10 @@ package programa;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.net.URL;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,11 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.border.EtchedBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
-import javafx.scene.text.Font;
 
 public class InstanciaContaFrame extends JFrame{
 	
@@ -124,7 +115,10 @@ public class InstanciaContaFrame extends JFrame{
 				case "Conta Simples":
 					if(!entradaDados[0].getText().equals(""))
 					{
-						SistemaBancario.setContaSimples(entradaDados[0].getText());
+						Conta[] banco = SistemaBancario.getInstanceContaArray();
+				    	banco[SistemaBancario.num] = new ContaSimples(entradaDados[0].getText(), SistemaBancario.getNumConta());
+				    	SistemaBancario.num++;
+						//SistemaBancario.setContaSimples(entradaDados[0].getText());
 						JOptionPane.showMessageDialog(null,qualConta + " criada com sucesso!","Informativo sobre " + qualConta,JOptionPane.INFORMATION_MESSAGE);
 						sucesso=true;
 					}
@@ -136,7 +130,11 @@ public class InstanciaContaFrame extends JFrame{
 						try
 						{
 							float floatNum = Float.parseFloat(entradaDados[3].getText());
-							SistemaBancario.setContaPoupança(entradaDados[0].getText(), floatNum);
+							Conta[] banco = SistemaBancario.getInstanceContaArray();
+					    	banco[SistemaBancario.num] = new ContaPoupanca(entradaDados[0].getText(),SistemaBancario.getNumConta(), floatNum);
+					    	SistemaBancario.hasCP=true;
+					    	SistemaBancario.num++;
+					    	//SistemaBancario.setContaPoupança(entradaDados[0].getText(), floatNum);
 							JOptionPane.showMessageDialog(null,qualConta + " criada com sucesso!","Informativo sobre " + qualConta,JOptionPane.INFORMATION_MESSAGE);
 							sucesso=true;
 						}
@@ -154,7 +152,11 @@ public class InstanciaContaFrame extends JFrame{
 						try
 						{
 							int intNum = Integer.parseInt(entradaDados[2].getText());
-							SistemaBancario.setContaEspecial(entradaDados[0].getText(),intNum);
+							Conta[] banco = SistemaBancario.getInstanceContaArray();
+					    	banco[SistemaBancario.num] = new ContaEspecial(entradaDados[0].getText(), SistemaBancario.getNumConta(), intNum);
+					    	SistemaBancario.hasCE=true;
+					    	SistemaBancario.num++;
+							//SistemaBancario.setContaEspecial(entradaDados[0].getText(),intNum);
 							JOptionPane.showMessageDialog(null,qualConta + " criada com sucesso!","Informativo sobre " + qualConta,JOptionPane.INFORMATION_MESSAGE);
 							sucesso=true;
 						}
