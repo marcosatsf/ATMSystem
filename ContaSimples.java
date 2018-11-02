@@ -14,7 +14,7 @@ public class ContaSimples extends Conta
   @Override
   public void sacar(double valor) throws ValorInsuficiente
   {
-	  if(valor <= getSaldo()) decSaldo(valor);      
+	  if(valor <= getSaldo()) decSaldo(valor);
 	  else throw new ValorInsuficiente();
   }
 @Override

@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 public abstract class Conta
 {
   protected String nomeCorrentista, senha,numeroConta;
-  protected double saldo;
+  private double saldo;
   private Color cor, auxcor;
   
   public Conta()

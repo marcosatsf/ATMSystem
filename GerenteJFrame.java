@@ -58,8 +58,12 @@ public class GerenteJFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				// TODO Auto-generated method stub
-				GerenteJFrame.this.setEnabled(false);
-				InstanciaContaFrame aux = new InstanciaContaFrame(GerenteJFrame.this.createOptionsToSelect.getSelectedItem().toString(), dimensaoFrame, GerenteJFrame.this);
+				if(SistemaBancario.num < SistemaBancario.tamanho)
+				{
+					GerenteJFrame.this.setEnabled(false);
+					InstanciaContaFrame aux = new InstanciaContaFrame(GerenteJFrame.this.createOptionsToSelect.getSelectedItem().toString(), dimensaoFrame, GerenteJFrame.this);
+				}
+				else JOptionPane.showMessageDialog(null,"Tamanho máximo atingido para criação de contas!","Falha na criação de contas",JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		
@@ -119,7 +123,8 @@ public class GerenteJFrame extends JFrame{
 				// TODO Auto-generated method stub
 				if(SistemaBancario.hasCP)
 				{
-					SistemaBancario.aplicarRend();
+					Conta banco[] = SistemaBancario.getInstanceContaArray();
+					for(int j=0;j< SistemaBancario.num;j++) if(banco[j] instanceof ContaPoupanca) ((ContaPoupanca)banco[j]).aplicaRendimento();
 					JOptionPane.showMessageDialog(null,"Foram aplicados os rendimentos em todas as contas poupanças do sistema!","Informativo sobre Conta Poupança",JOptionPane.INFORMATION_MESSAGE);
 				}
 				else
@@ -159,8 +164,9 @@ public class GerenteJFrame extends JFrame{
 					try
 					{
 						float taxaNum = Float.parseFloat(chargeValue.toString());
-						SistemaBancario.cobrarJuros(taxaNum);
-						JOptionPane.showMessageDialog(null,"Foram cobrados juros sobre todas as contas especiais do sistema!","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
+						Conta banco[] = SistemaBancario.getInstanceContaArray();
+						for(int j=0;j< SistemaBancario.num;j++) if(banco[j] instanceof ContaEspecial) ((ContaEspecial)banco[j]).cobrancaJuros(taxaNum);
+						JOptionPane.showMessageDialog(null,"Foram cobrados juros sobre todas as contas especiais do sistema (as quais estão com saldo negativo)!","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
 					}
 					catch(Exception e)
 					{
