@@ -22,11 +22,12 @@ public class ProgressoOperacao extends JFrame{
 	public JButton confirm;
 	public int tempo;
 	
-	public ProgressoOperacao(String opIndicativo, double valor,Dimension dimensaoFrame, JTextArea infoConta, Conta account) {
+	public ProgressoOperacao(String opIndicativo, double valor,Dimension dimensaoFrame, JTextArea infoConta, Conta account, JFrame jsource) {
 		// TODO Auto-generated constructor stub
 		setSize(300, 150);
 		setLayout(new GridLayout(3,1));
 		setBackground(Color.ORANGE);
+		super.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		this.setLocation((dimensaoFrame.width - this.getSize().width)/3, (dimensaoFrame.height - this.getSize().height)/2);
 		
@@ -80,6 +81,7 @@ public class ProgressoOperacao extends JFrame{
 				// TODO Auto-generated method stub
 				infoConta.setEnabled(true);
 				infoConta.setText(account.printConta());
+				jsource.setEnabled(true);
 				dispose();
 			}
 		});

@@ -162,12 +162,17 @@ public class LoginFrame extends JFrame{
 				try
 				{
 					double sacarDouble = Double.parseDouble(withdraw.getText());
-					account.sacar(sacarDouble);
-					infoConta.setEnabled(false);
-					//JOptionPane.showMessageDialog(null,"","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
-					ProgressoOperacao progress = new ProgressoOperacao("sacado", sacarDouble, dimensaoFrame, infoConta, account);
-					progress.teste.execute();
-					LoginFrame.this.validate();
+					if(sacarDouble < 0)
+					{
+						account.sacar(sacarDouble);
+						infoConta.setEnabled(false);
+						//JOptionPane.showMessageDialog(null,"","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
+						LoginFrame.this.setEnabled(false);
+						ProgressoOperacao progress = new ProgressoOperacao("sacado", sacarDouble, dimensaoFrame, infoConta, account, LoginFrame.this);
+						progress.teste.execute();
+						LoginFrame.this.validate();
+					}
+					else JOptionPane.showMessageDialog(null,"Apenas valores positivos são aceitos!","Informativo sobre saque",JOptionPane.ERROR_MESSAGE);
 				}
 				catch(ValorInsuficiente e)
 				{
@@ -189,16 +194,21 @@ public class LoginFrame extends JFrame{
 				try
 				{
 					double depositarDouble = Double.parseDouble(deposit.getText());
-					account.depositar(depositarDouble);
-					infoConta.setEnabled(false);
-					//JOptionPane.showMessageDialog(null,"","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
-					ProgressoOperacao progress = new ProgressoOperacao("depositado", depositarDouble, dimensaoFrame, infoConta, account);
-					progress.teste.execute();	
-					LoginFrame.this.validate();
+					if(depositarDouble > 0)
+					{
+						account.depositar(depositarDouble);
+						infoConta.setEnabled(false);
+						//JOptionPane.showMessageDialog(null,"","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
+						LoginFrame.this.setEnabled(false);
+						ProgressoOperacao progress = new ProgressoOperacao("depositado", depositarDouble, dimensaoFrame, infoConta, account, LoginFrame.this);
+						progress.teste.execute();	
+						LoginFrame.this.validate();
+					}
+					else JOptionPane.showMessageDialog(null,"Apenas valores positivos são aceitos!","Informativo sobre depósito",JOptionPane.ERROR_MESSAGE);
 				}
 				catch(NumberFormatException e)
 				{
-					JOptionPane.showMessageDialog(null,"Informe um valor válido!","Informativo sobre saque",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Informe um valor válido!","Informativo sobre depósito",JOptionPane.WARNING_MESSAGE);
 					System.err.println(e);
 				}
 			}

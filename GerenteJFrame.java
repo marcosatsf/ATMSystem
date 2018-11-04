@@ -168,9 +168,9 @@ public class GerenteJFrame extends JFrame{
 						for(int j=0;j< SistemaBancario.num;j++) if(banco[j] instanceof ContaEspecial) ((ContaEspecial)banco[j]).cobrancaJuros(taxaNum);
 						JOptionPane.showMessageDialog(null,"Foram cobrados juros sobre todas as contas especiais do sistema (as quais estão com saldo negativo)!","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
 					}
-					catch(Exception e)
+					catch(NumberFormatException e)
 					{
-						JOptionPane.showMessageDialog(null,"Informe um valor válido!","Informativo sobre Conta Especial",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Informe um valor válido (número real)!","Informativo sobre Conta Especial",JOptionPane.ERROR_MESSAGE);
 						System.err.println(e);
 					}
 				}
