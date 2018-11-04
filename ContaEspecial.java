@@ -50,7 +50,7 @@ public class ContaEspecial extends Conta
     	double saldoCobranca = getSaldo();
     	if(saldoCobranca < 0)
     	{
-    		saldoCobranca *= (quantJuros/100);
+    		saldoCobranca *= -(quantJuros/100.0);
     		decSaldo(saldoCobranca);
     	}
     }

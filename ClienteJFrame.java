@@ -150,7 +150,6 @@ public class ClienteJFrame extends JFrame{
 		add(yieldAdd,modifier);
 		//add(gridLayoutPanel);
 		
-		
 		addWindowListener(new java.awt.event.WindowAdapter(){
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent event)

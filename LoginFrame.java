@@ -162,7 +162,7 @@ public class LoginFrame extends JFrame{
 				try
 				{
 					double sacarDouble = Double.parseDouble(withdraw.getText());
-					if(sacarDouble < 0)
+					if(sacarDouble > 0)
 					{
 						account.sacar(sacarDouble);
 						infoConta.setEnabled(false);

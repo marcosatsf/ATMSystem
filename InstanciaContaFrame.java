@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 
 public class InstanciaContaFrame extends JFrame{
 	
-	private final String[] textVar = {"Nome", "Número", "Limite", "Taxa"};
+	private final String[] textVar = {"Nome", "Número", "Limite(R$)", "Taxa(%)"};
 	private int maxForms = textVar.length;
 	public int c;
 

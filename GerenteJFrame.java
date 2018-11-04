@@ -147,7 +147,7 @@ public class GerenteJFrame extends JFrame{
 		borderPrefab4.setTitleFont(MenuFrame.bankFont);
 		chargeInterest.setBorder(borderPrefab4);
 		
-		JLabel chargeValueText = new JLabel("Valor da taxa: ");
+		JLabel chargeValueText = new JLabel("Valor da taxa (em %): ");
 		chargeValueText.setFont(MenuFrame.bankFont.deriveFont(1, 12));
 		
 		JTextField chargeValue = new JTextField(8);
@@ -163,7 +163,7 @@ public class GerenteJFrame extends JFrame{
 				{
 					try
 					{
-						float taxaNum = Float.parseFloat(chargeValue.toString());
+						float taxaNum = Float.parseFloat(chargeValue.getText());
 						Conta banco[] = SistemaBancario.getInstanceContaArray();
 						for(int j=0;j< SistemaBancario.num;j++) if(banco[j] instanceof ContaEspecial) ((ContaEspecial)banco[j]).cobrancaJuros(taxaNum);
 						JOptionPane.showMessageDialog(null,"Foram cobrados juros sobre todas as contas especiais do sistema (as quais estão com saldo negativo)!","Informativo sobre Conta Especial",JOptionPane.INFORMATION_MESSAGE);
