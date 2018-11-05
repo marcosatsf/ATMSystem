@@ -133,15 +133,16 @@ public class ClienteJFrame extends JFrame{
 		
 		yieldAdd.add(imagem);
 		
-		Timer tm = new Timer(3000,new ActionListener() {
+		Timer tm = new Timer(3500,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if(whichImg >= listImg.length-1) whichImg = 0;
+            	else whichImg++;
+            	
         		icon = new ImageIcon(listImg[whichImg]);
         		imagem.setIcon(icon);
         		repaint();
             	revalidate();
-            	if(whichImg >= listImg.length-1) whichImg = 0;
-            	else whichImg++;
             }
         });
 		//tm.setInitialDelay(1000);
